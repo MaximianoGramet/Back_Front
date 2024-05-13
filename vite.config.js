@@ -1,15 +1,16 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { loadEnv } from "vite";
 
 export default async ({ command, mode }) => {
   await loadEnv(mode, process.cwd()); // Load environment variables from .env files
 
-  const env = loadEnv(mode, process.cwd()); // Load environment variables again for immediate use
+  const env = process.env; // Access loaded environment variables
 
   return defineConfig({
     plugins: [react()],
     server: {
-      port: env.VITE_PORT || 3000, // Example usage of an environment variable for port
+      port: env.PORT || 3000, // Use the PORT environment variable, if available, or fallback to 3000
     },
   });
 };
