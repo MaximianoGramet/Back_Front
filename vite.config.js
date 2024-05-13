@@ -10,6 +10,7 @@ export default async ({ command, mode }) => {
   return defineConfig({
     plugins: [react()],
     server: {
+      host: "0.0.0.0", // Listen on all available network interfaces
       port: env.PORT || 3000, // Use the PORT environment variable, if available, or fallback to 3000
     },
   });
