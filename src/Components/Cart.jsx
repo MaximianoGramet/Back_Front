@@ -32,8 +32,21 @@ const Cart = () => {
   }, []);
 
   const handleDeleteProduct = async (productId) => {
-    // Logic to delete product from the cart (not implemented yet)
-    setCartProducts(cartProducts.filter(product => product._id !== productId));
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${url}/api/carts/${user.cart}/products/${productId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setCartProducts(cartProducts.filter(product => product._id !== productId));
+        console.log("Product deleted successfully");
+      } else {
+        console.error("Error deleting product from cart");
+      }
+    } catch (error) {
+      console.error("Error deleting product from cart:", error);
+    }
+    setIsLoading(false);
   };
 
   const handlePurchase = async () => {
